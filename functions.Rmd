@@ -112,8 +112,9 @@ as.tibble(wcgs.new)
 C. Using a loop and your new function, standardize all the variables WCGS.new dataset.
 
 ```{r}
-wcgs.standard = wcgs.new %>%
-  map_df(standardize.me)
+for(i in seq_along(wcgs.new)) {
+    wcgs.new[[i]] = standardize.me(wcgs.new[[i]])
+}
 
 
 ```
@@ -123,9 +124,13 @@ D. What should the mean and standard deviation of all your new standardized vari
 Now that the values are standardized, the mean should be zero and the sd should be 1.
 
 ```{r}
-map_dbl(wcgs.standard, mean, na.rm = TRUE)
+for (i in seq_along(wcgs.new)) {
+  print(mean(wcgs.new[,i], na.rm = TRUE))
+}
 
-map_dbl(wcgs.standard, sd, na.rm = TRUE)
+for (i in seq_along(wcgs.new)) {
+  print(sd(wcgs.new[,i], na.rm = TRUE))
+}
 
 ```
 
